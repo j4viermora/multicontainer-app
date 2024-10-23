@@ -1,0 +1,36 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    networks:
+      - internal_network
+    expose:
+      - 80
+    environment:
+      - NODE_ENV=production
+
+  backend:
+    build: ./backend
+    container_name: backend
+    networks:
+      - internal_network
+    expose:
+      - 3000
+    environment:
+      - NODE_ENV=production
+
+  proxy:
+    build: ./proxy
+    container_name: proxy
+    ports:
+      - "8080:80"  # Exponemos solo el proxy
+    networks:
+      - internal_network
+    depends_on:
+      - frontend
+      - backend
+
+networks:
+  internal_network:
+    driver: bridge
