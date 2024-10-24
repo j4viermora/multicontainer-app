@@ -24,7 +24,7 @@ services:
     build: ./proxy
     container_name: proxy
     ports:
-      - "8080:80"  # Exponemos solo el proxy
+      - "${PORT}:80"  # Exponemos solo el proxy
     networks:
       - internal_network
     depends_on:
