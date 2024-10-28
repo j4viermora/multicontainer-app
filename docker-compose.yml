@@ -9,6 +9,15 @@ services:
       - 80
     environment:
       - NODE_ENV=production
+  frontend-react:
+    build: ./frontend-react
+    container_name: frontend-react
+    networks:
+      - internal_network
+    expose:
+      - 80
+    environment:
+      - NODE_ENV=production
 
   backend:
     build: ./backend
@@ -29,6 +38,7 @@ services:
       - internal_network
     depends_on:
       - frontend
+      - frontend-react
       - backend
 
 networks:
